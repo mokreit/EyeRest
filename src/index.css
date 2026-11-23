@@ -1,0 +1,201 @@
+@import "tailwindcss";
+
+:root {
+  --bg-canvas: #f4f7f4;
+  --bg-canvas-gradient: radial-gradient(
+      900px circle at 88% -10%,
+      rgba(16, 185, 129, 0.12),
+      transparent 55%
+    ),
+    radial-gradient(
+      700px circle at 5% 105%,
+      rgba(20, 184, 166, 0.08),
+      transparent 55%
+    ),
+    #f4f7f4;
+  --bg-surface: rgba(255, 255, 255, 0.86);
+  --bg-surface-solid: #ffffff;
+  --bg-subtle: rgba(226, 240, 232, 0.55);
+  --border-soft: rgba(18, 62, 46, 0.085);
+  --border-strong: rgba(18, 62, 46, 0.14);
+  --text-primary: #12261f;
+  --text-secondary: #587268;
+  --text-muted: #7f988e;
+  --accent: #0f8a64;
+  --accent-hover: #0b7353;
+  --accent-soft: rgba(15, 138, 100, 0.11);
+  --shadow-card: 0 1px 2px rgba(15, 45, 34, 0.04), 0 10px 30px -12px rgba(15, 45, 34, 0.08);
+  --shadow-elevated: 0 12px 32px -10px rgba(15, 138, 100, 0.28);
+}
+
+.dark {
+  --bg-canvas: #09110f;
+  --bg-canvas-gradient: radial-gradient(
+      900px circle at 85% -15%,
+      rgba(16, 185, 129, 0.14),
+      transparent 52%
+    ),
+    radial-gradient(
+      700px circle at 10% 110%,
+      rgba(13, 148, 136, 0.1),
+      transparent 55%
+    ),
+    #09110f;
+  --bg-surface: rgba(19, 32, 28, 0.8);
+  --bg-surface-solid: #13201c;
+  --bg-subtle: rgba(31, 52, 46, 0.55);
+  --border-soft: rgba(180, 238, 215, 0.085);
+  --border-strong: rgba(180, 238, 215, 0.16);
+  --text-primary: #eaf4f0;
+  --text-secondary: #92ada3;
+  --text-muted: #678379;
+  --accent: #34d399;
+  --accent-hover: #10b981;
+  --accent-soft: rgba(52, 211, 153, 0.13);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35), 0 14px 36px -14px rgba(0, 0, 0, 0.55);
+  --shadow-elevated: 0 12px 32px -10px rgba(16, 185, 129, 0.32);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI Variable Display", "Segoe UI", "Microsoft YaHei UI", system-ui, -apple-system, sans-serif;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.window-main {
+  background: var(--bg-canvas-gradient);
+  color: var(--text-primary);
+}
+
+body.window-transparent {
+  background: transparent !important;
+  overflow: hidden;
+}
+
+.glass-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-soft);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(18px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #10a376 0%, #0d7d63 100%);
+  color: #ffffff;
+  box-shadow: var(--shadow-elevated), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  transition: transform 0.16s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+.btn-primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0) scale(0.985);
+}
+
+/* Custom sleek range slider */
+input[type="range"].eyerest-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--border-strong);
+  outline: none;
+}
+input[type="range"].eyerest-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: var(--accent);
+  border: 2.5px solid var(--bg-surface-solid);
+  box-shadow: 0 2px 6px rgba(15, 138, 100, 0.35);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+input[type="range"].eyerest-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.14);
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(88, 114, 104, 0.22);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(88, 114, 104, 0.42);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.9);
+    opacity: 0.38;
+  }
+  50% {
+    transform: scale(1.16);
+    opacity: 0.82;
+  }
+}
+
+.animate-breathe {
+  animation: breathe 8s ease-in-out infinite;
+}
+
+@keyframes slowOrbit {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.07);
+    opacity: 0.72;
+  }
+}
+
+.animate-soft-halo {
+  animation: slowOrbit 5.5s ease-in-out infinite;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-float-in {
+  animation: floatIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes soundBar {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-sound-bar {
+  animation: soundBar 0.7s ease-in-out infinite;
+}

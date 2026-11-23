@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Frontend build output
+dist/
+dist-release/
+*.local
+
+# Rust / Tauri build artifacts
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# OS & Editor files
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.log

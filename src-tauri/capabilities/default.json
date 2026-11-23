@@ -1,0 +1,20 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default permissions for EyeRest main and reminder windows",
+  "windows": ["main", "reminder-popup*", "pre-break-toast*", "overlay-*"],
+  "permissions": [
+    "core:default",
+    "core:window:default",
+    "core:webview:default",
+    "core:window:allow-close",
+    "core:window:allow-destroy",
+    "core:window:allow-hide",
+    "core:window:allow-show",
+    "core:window:allow-set-focus",
+    "core:window:allow-minimize",
+    "core:event:default",
+    "autostart:default",
+    "notification:default"
+  ]
+}

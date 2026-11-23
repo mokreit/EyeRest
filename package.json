@@ -1,0 +1,31 @@
+{
+  "name": "eyerest",
+  "private": true,
+  "version": "1.0.0",
+  "description": "EyeRest (明眸护眼) - Lightweight Windows eye-care reminder app built with Tauri v2",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.5.0",
+    "@tauri-apps/plugin-autostart": "^2.3.0",
+    "@tauri-apps/plugin-notification": "^2.2.0",
+    "lucide-react": "^0.511.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.0",
+    "@tauri-apps/cli": "^2.5.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.4.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.8.0",
+    "vite": "^6.3.0"
+  }
+}

@@ -1,0 +1,55 @@
+name: Release Windows Build
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: "npm"
+
+      - name: Setup Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "./src-tauri -> target"
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Run Rust unit tests
+        working-directory: src-tauri
+        run: cargo test
+
+      - name: Build Tauri app (NSIS + Portable EXE)
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: ${{ github.ref_name }}
+          releaseName: "EyeRest ${{ github.ref_name }}"
+          releaseBody: "EyeRest（明眸护眼）Windows 安装包与可执行文件。"
+          releaseDraft: true
+          prerelease: false
+
+      - name: Upload standalone portable EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: EyeRest-windows-portable
+          path: src-tauri/target/release/eyerest.exe
