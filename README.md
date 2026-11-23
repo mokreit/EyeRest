@@ -4,6 +4,19 @@
 
 低内存占用、原生系统托盘常驻、支持多显示器全屏遮罩与柔和弹窗自由切换，所有进阶功能均可在设置中按需开关。
 
+## 界面预览
+
+### 护眼控制台（浅色森屿主题）
+![EyeRest 护眼控制台](docs/screenshots/dashboard.png)
+
+### 偏好设置与 6 种治愈提示音（深色夜林主题）
+![EyeRest 偏好设置](docs/screenshots/settings.png)
+
+### 全屏护眼遮罩与呼吸引导
+![EyeRest 全屏护眼遮罩](docs/screenshots/overlay.png)
+
+---
+
 ## 核心特性
 
 - **原生系统托盘常驻**：关闭主窗口后自动最小化到右下角托盘继续精准计时；托盘悬停显示实时倒计时，右键快速暂停/继续、立即休息、推迟、切换方案。
@@ -60,7 +73,7 @@ npm run tauri build
 
 ## 自动化发布（GitHub Actions）
 
-本仓库已内置 [`.github/workflows/release.yml`](.github/workflows/release.yml)。推送 `v*` 标签（例如 `git tag v1.0.0 && git push origin v1.0.0`）即可在 GitHub 云端自动构建 Windows x64 安装包与绿色便携版，并创建 Draft Release。
+本仓库已内置 [`.github/workflows/release.yml`](.github/workflows/release.yml)。推送 `v*` 标签（例如 `git tag v1.0.0 && git push origin v1.0.0`）即可在 GitHub 云端自动构建 Windows x64 安装包与绿色便携版，并自动发布 Release。
 
 ## 开源许可
 

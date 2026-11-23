@@ -20,8 +20,14 @@ function applyTheme(theme: ThemeMode) {
   }
 }
 
+function getInitialTab(): NavTab {
+  const t = new URLSearchParams(window.location.search).get("tab");
+  if (t === "presets" || t === "stats" || t === "settings") return t;
+  return "dashboard";
+}
+
 export function App() {
-  const [tab, setTab] = useState<NavTab>("dashboard");
+  const [tab, setTab] = useState<NavTab>(getInitialTab);
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [snapshot, setSnapshot] = useState<TimerSnapshot | null>(null);
 

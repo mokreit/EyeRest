@@ -11,6 +11,10 @@ function detectWindowLabel(): string {
   try {
     return getCurrentWebviewWindow().label;
   } catch {
+    const view = new URLSearchParams(window.location.search).get("view");
+    if (view === "overlay") return "overlay-primary-preview";
+    if (view === "popup") return "reminder-popup-preview";
+    if (view === "prebreak") return "pre-break-toast-preview";
     return "main";
   }
 }
