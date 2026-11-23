@@ -37,19 +37,47 @@ jobs:
         working-directory: src-tauri
         run: cargo test
 
-      - name: Build Tauri app (NSIS + Portable EXE)
+      - name: Build Tauri app and create GitHub Release
         uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: ${{ github.ref_name }}
           releaseName: "EyeRest ${{ github.ref_name }}"
-          releaseBody: "EyeRest（明眸护眼）Windows 安装包与可执行文件。"
-          releaseDraft: true
+          releaseBody: |
+            ## EyeRest（明眸护眼）${{ github.ref_name }}
+
+            轻量级 Windows 护眼定时提醒桌面程序（基于 Tauri v2 + Rust + React）。
+
+            ### 主要功能
+            - 原生 Windows 系统托盘常驻、实时倒计时提示与右键快捷控制
+            - 开机自启动 & 静默最小化启动到托盘
+            - 内置 4 套科学护眼预设 + 自由创建/编辑自定义时间方案
+            - 柔和右下角弹窗 & 多显示器全屏护眼遮罩（支持呼吸节奏引导、跳过/推迟与提前预警）
+            - 智能免打扰：Win32 原生键鼠空闲/锁屏检测、全屏游戏/视频/PPT 免打扰、跨午夜定时免打扰
+            - 6 种本地合成治愈提示音（晨露风铃、禅意颂钵、林间水滴、暖木拇指琴、柔光钢琴、清心铃磬）
+            - 每日护眼统计与 7 天趋势图（支持导出 JSON）
+
+            ### 下载说明
+            - **`*_x64-setup.exe`**：Windows 安装程序（推荐日常使用）
+            - **`EyeRest-*-windows-x64-portable.zip`**：绿色便携版，解压即用
+          releaseDraft: false
           prerelease: false
 
-      - name: Upload standalone portable EXE artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: EyeRest-windows-portable
-          path: src-tauri/target/release/eyerest.exe
+      - name: Package and attach portable ZIP to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $tag = "${{ github.ref_name }}"
+          $stage = "portable-stage"
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item "src-tauri/target/release/eyerest.exe" "$stage/EyeRest.exe" -Force
+          if (Test-Path "src-tauri/target/release/WebView2Loader.dll") {
+            Copy-Item "src-tauri/target/release/WebView2Loader.dll" "$stage/WebView2Loader.dll" -Force
+          }
+          Copy-Item "LICENSE" "$stage/LICENSE" -Force
+          $zipName = "EyeRest-$tag-windows-x64-portable.zip"
+          Compress-Archive -Path "$stage/*" -DestinationPath $zipName -Force
+          gh release upload $tag $zipName --clobber
